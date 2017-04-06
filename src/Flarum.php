@@ -131,7 +131,7 @@ class Flarum
                 break;
             default:
                 return [
-                    'json' => $variables
+                    'json' => $variables[0]
                 ];
         }
     }
