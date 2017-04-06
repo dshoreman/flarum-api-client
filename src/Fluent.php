@@ -10,8 +10,11 @@ class Fluent
      * @var array
      */
     protected $types = [
+        'forum',
         'discussions',
+        'posts',
         'users',
+        'tags',
     ];
 
     protected $methods = [
