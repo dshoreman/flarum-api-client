@@ -56,7 +56,7 @@ class Flarum
     /**
      * @return Flarum
      */
-    protected function fluent(): Flarum
+    public function fluent(): Flarum
     {
         $this->fluent = new Fluent($this);
 
