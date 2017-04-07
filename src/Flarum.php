@@ -38,6 +38,11 @@ class Flarum
     protected static $cache;
 
     /**
+     * @var Links returned from paginated requests
+     */
+    protected $links;
+
+    /**
      * Flarum constructor.
      * @param $host Full FQDN hostname to your Flarum forum, eg http://example.com/forum
      * @param array $authorization Holding either "token" or "username" and "password" as keys.
@@ -84,6 +89,16 @@ class Flarum
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             // Reset the fluent builder for a new request.
             $this->fluent();
+
+            // Dirty hack to get pagination links as only the
+            // data part of the response is passed to builder
+            if (!empty($body = $response->getBody())) {
+                $json = json_decode($body, true);
+
+                if ($links = Arr::get($json, 'links')) {
+                    $this->links = $links;
+                }
+            }
 
             return Factory::build($response);
         }
