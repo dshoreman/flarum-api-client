@@ -60,4 +60,16 @@ class Collection extends Resource
 
         return $set;
     }
+
+    /**
+     * Merge another Collection into this one
+     * @param Collection $items
+     * @return Collection
+     */
+    public function merge(Collection $items)
+    {
+        $this->items = $this->collect()->merge($items->collect())->keyBy('id');
+
+        return $this;
+    }
 }

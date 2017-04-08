@@ -40,7 +40,7 @@ class Flarum
     /**
      * @var Links returned from paginated requests
      */
-    protected $links;
+    public $links;
 
     /**
      * Flarum constructor.
@@ -95,9 +95,7 @@ class Flarum
             if (!empty($body = $response->getBody())) {
                 $json = json_decode($body, true);
 
-                if ($links = Arr::get($json, 'links')) {
-                    $this->links = $links;
-                }
+                $this->links = Arr::get($json, 'links');
             }
 
             return Factory::build($response);
